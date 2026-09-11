@@ -8,6 +8,8 @@ import random
 app = FastAPI(title="AgriConnect AI Engine & Portal Backend")
 
 # Enable CORS so browser scripts can fetch API responses seamlessly
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,6 +17,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+    
 
 # ----------------------------------------------------
 # 1. AI IMAGE GRADING & UPLOAD ENDPOINT
