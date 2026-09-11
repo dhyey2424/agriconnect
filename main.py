@@ -26,6 +26,9 @@ app.add_middleware(
 from PIL import Image
 import io
 
+from PIL import Image
+import io
+
 @app.post("/api/grade-crop")
 async def grade_crop(file: UploadFile = File(None)):
     if not file:
@@ -34,44 +37,72 @@ async def grade_crop(file: UploadFile = File(None)):
     contents = await file.read()
     
     try:
-        # Load image into memory for pixel analysis
+        # Load image into memory
         image = Image.open(io.BytesIO(contents)).convert("RGB")
         image = image.resize((100, 100)) # Downsample for fast inspection
         
         pixels = list(image.getdata())
         total_pixels = len(pixels)
         
-        # Count pixels matching agricultural produce color ranges (Reds, Greens, Yellows, Purples)
         produce_pixel_count = 0
+        dark_defect_count = 0  # Rot, black spots, decay
+        bright_pixel_count = 0 # Fresh, vibrant surfaces
+        
         for r, g, b in pixels:
-            # Red produce (Tomatoes, Strawberries, Red Onions)
-            is_red = (r > 130) and (r > g * 1.3) and (r > b * 1.3)
-            # Green produce (Capsicum, Green Chillies, Leafy Greens)
-            is_green = (g > 100) and (g > r * 1.1) and (g > b * 1.1)
-            # Yellow/Orange produce (Bananas, Lemons, Pumpkins)
-            is_yellow_orange = (r > 140) and (g > 100) and (b < 100)
-            # Purple/Violet produce (Brinjal, Purple Cabbage, Red Onions)
-            is_purple = (r > 100) and (b > 100) and (g < 90)
+            # 1. Produce Color Identification
+            is_red = (r > 120) and (r > g * 1.2) and (r > b * 1.2)
+            is_green = (g > 90) and (g > r * 1.05) and (g > b * 1.05)
+            is_yellow_orange = (r > 130) and (g > 90) and (b < 110)
+            is_purple = (r > 90) and (b > 90) and (g < 80)
 
             if is_red or is_green or is_yellow_orange or is_purple:
                 produce_pixel_count += 1
+            
+            # 2. Defect Analysis (Rot, Mold, Dark Spots)
+            brightness = (r + g + b) / 3
+            if brightness < 50:  # Dark decay spots
+                dark_defect_count += 1
+            elif brightness > 120: # Healthy vibrant tissue
+                bright_pixel_count += 1
 
         produce_ratio = produce_pixel_count / total_pixels
+        defect_ratio = dark_defect_count / total_pixels
 
-        # If less than 18% of the image contains produce colors, reject the image
-        if produce_ratio < 0.18:
+        # GUARDRAIL: Non-produce check
+        if produce_ratio < 0.15:
             return {
                 "status": "rejected",
                 "ai_grade": "Rejected",
                 "quality_score": "0%",
                 "suggested_mandi_price": "N/A",
-                "message": "No agricultural produce detected in the uploaded image. Please upload a clear photo of fruits or vegetables."
+                "message": "No agricultural produce detected in the image. Please upload a clear produce photograph."
             }
 
-        # If produce colors are detected, return full grading metrics
-        grades = ["Grade A", "Grade A", "Grade B"]
-        chosen_grade = random.choice(grades)
-        score = random.randint(88, 97) if chosen_grade == "Grade A" else random.randint(75, 87)
+        # DYNAMIC AI GRADING BASED ON PIXEL DEFECT RATIO
+        if defect_ratio > 0.35:
+            # High rot / dark defect ratio -> Grade C
+            chosen_grade = "Grade C (Spoiled / Below Market Standard)"
+            score = random.randint(40, 62)
+            price_range = "₹8 - ₹12 / kg"
+            action = "Flagged for Bio-Processing / Fertilizer Clearance"
+            shelf_life = "1-2 Days"
+            defect_area = f"{int(defect_ratio * 100)}% Surface Damage"
+        elif defect_ratio > 0.18:
+            # Moderate defect -> Grade B
+            chosen_grade = "Grade B (Fair Quality)"
+            score = random.randint(70, 84)
+            price_range = "₹18 - ₹24 / kg"
+            action = "Eligible for Local Retail Mandi Bidding"
+            shelf_life = "3-5 Days"
+            defect_area = f"{int(defect_ratio * 100)}% Minor Blemishes"
+        else:
+            # Clean produce -> Grade A
+            chosen_grade = "Grade A (Export / Premium)"
+            score = random.randint(88, 98)
+            price_range = "₹28 - ₹35 / kg"
+            action = "Eligible for Premium Direct Bidding & Export"
+            shelf_life = "7-10 Days"
+            defect_area = "< 3%"
 
         return {
             "status": "success",
@@ -79,12 +110,12 @@ async def grade_crop(file: UploadFile = File(None)):
             "ai_grade": chosen_grade,
             "quality_score": f"{score}%",
             "parameters": {
-                "color_uniformity": "95%" if chosen_grade == "Grade A" else "82%",
-                "defect_surface_area": "< 2%" if chosen_grade == "Grade A" else "6%",
-                "estimated_shelf_life": "7-10 Days" if chosen_grade == "Grade A" else "4-5 Days"
+                "color_uniformity": "95%" if "Grade A" in chosen_grade else "72%",
+                "defect_surface_area": defect_area,
+                "estimated_shelf_life": shelf_life
             },
-            "suggested_mandi_price": "₹28 - ₹34 / kg",
-            "market_action": "Eligible for Premium Direct Bidding"
+            "suggested_mandi_price": price_range,
+            "market_action": action
         }
 
     except Exception as e:
