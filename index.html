@@ -109,6 +109,15 @@ url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fi
   <a class="brand" href="#top">Agri<span>Connect</span></a>
   <div class="navlinks">
     <a href="#platform">Platform</a><a href="#marketplace">Marketplace</a><a href="#intelligence">Intelligence</a><a href="#stories">Impact</a><a href="#resources">Resources</a>
+    <!-- Language Selector Dropdown -->
+<div style="display:inline-flex;align-items:center;gap:6px;background:#ffffff;border:1px solid #e2e8f0;padding:4px 10px;border-radius:999px;margin-right:8px">
+  <span style="font-size:12px">🌐</span>
+  <select id="languageSelect" onchange="changeLanguage(this.value)" style="background:transparent;border:none;font-size:12px;font-weight:700;color:#1a2e22;cursor:pointer;outline:none">
+    <option value="en">English</option>
+    <option value="hi">हिन्दी (Hindi)</option>
+    <option value="mr">मराठी (Marathi)</option>
+  </select>
+</div>
     <button class="searchBtn" onclick="openSearch()" aria-label="Search">⌕</button>
   </div>
   <a class="role" href="farmer.html">Enter Platform ↗</a>
@@ -118,11 +127,13 @@ url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fi
 <section class="hero"><div class="heroPhoto" aria-hidden="true"></div>
 <div class="heroGrid">
 <div class="reveal">
-<div class="eyebrow"><i class="dot"></i> Maharashtra pilot · DEMO DATA</div>
-<h1>From Farm<br>to <em>Fair Price.</em></h1>
-<p class="lead">AgriConnect gives farmers a smarter path to market — combining price intelligence, AI-assisted visual assessment and transparent bidding from verified bulk buyers.</p>
-<div class="ctas"><button class="btn primary" onclick="openDemo('farmer')">Explore as Farmer →</button><button class="btn secondary" onclick="openDemo('buyer')">Explore as Buyer</button></div>
-<div class="heroStats"><div class="stat"><b>5</b><small>Maharashtra pilot regions</small></div><div class="stat"><b>3</b><small>decision layers</small></div><div class="stat"><b>0.5%</b><small>demo platform fee</small></div></div>
+<h1 data-i18n="heroTitle">From Farm<br>to <em>Fair Price.</em></h1>
+<p class="lead" data-i18n="heroSubtitle">AgriConnect gives farmers a smarter path to market — combining price intelligence, AI-assisted visual assessment and transparent bidding from verified bulk buyers.</p>
+<div class="ctas">
+  <button class="btn primary" onclick="openDemo('farmer')" data-i18n="btnFarmer">Explore as Farmer →</button>
+  <button class="btn" onclick="openDemo('buyer')" data-i18n="btnBuyer">Explore as Buyer</button>
+</div>
+   <div class="heroStats"><div class="stat"><b>5</b><small>Maharashtra pilot regions</small></div><div class="stat"><b>3</b><small>decision layers</small></div><div class="stat"><b>0.5%</b><small>demo platform fee</small></div></div>
 </div>
 <!-- Live Mandi Price Trend Chart -->
 <div style="max-width:1180px;margin:30px auto;padding:0 20px">
@@ -417,6 +428,6 @@ document.addEventListener("DOMContentLoaded", function () {
       maintainAspectRatio: false
     }
   });
-});
+}); 
 </script>
 </body>
