@@ -71,11 +71,30 @@ url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fi
 .productGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .productCard{background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;transition:.35s}
 .productCard:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
-.productImg{height:230px;background-size:cover;background-position:center}
-.tomato{background-image:url("https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=800&q=85")}
-.onion{background-image:url("https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=800&q=85")}
-.mango{background-image:url("https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=800&q=85")}
-.grape{background-image:url("https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=800&q=85")}
+/* Produce Card Image Backgrounds */
+.productImg {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.productImg.tomato {
+  background-image: url('https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80');
+}
+
+.productImg.onion {
+  background-image: url('https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?auto=format&fit=crop&w=600&q=80');
+}
+
+.productImg.mango {
+  background-image: url('https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80');
+}
+
+.productImg.grape {
+  background-image: url('https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=600&q=80');
+}
 .productInfo{padding:18px}.productInfo h4{font:800 20px Manrope;margin:0 0 7px}.productMeta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.productPrice{margin-top:18px;font:800 22px Manrope;color:var(--green)}
 .process{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:stretch}
 .processItem{padding:20px 15px;background:#fff;border:1px solid var(--line);border-radius:20px;position:relative;min-height:170px}
