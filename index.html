@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{--ink:#10231a;--muted:#64736b;--cream:#f5f5ef;--paper:#fff;--green:#0d5c3b;--leaf:#1c8a58;--lime:#cce96a;--gold:#e8b64a;--line:#dfe6e1;--shadow:0 24px 70px rgba(16,35,26,.12);--r:26px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif}a{text-decoration:none;color:inherit}button,input,select{font:inherit}button{cursor:pointer;border:0}
@@ -121,6 +123,21 @@ url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fi
 <p class="lead">AgriConnect gives farmers a smarter path to market — combining price intelligence, AI-assisted visual assessment and transparent bidding from verified bulk buyers.</p>
 <div class="ctas"><button class="btn primary" onclick="openDemo('farmer')">Explore as Farmer →</button><button class="btn secondary" onclick="openDemo('buyer')">Explore as Buyer</button></div>
 <div class="heroStats"><div class="stat"><b>5</b><small>Maharashtra pilot regions</small></div><div class="stat"><b>3</b><small>decision layers</small></div><div class="stat"><b>0.5%</b><small>demo platform fee</small></div></div>
+</div>
+<!-- Live Mandi Price Trend Chart -->
+<div style="max-width:1180px;margin:30px auto;padding:0 20px">
+  <div style="background:#ffffff;padding:28px;border-radius:24px;border:1px solid #e2e8f0;box-shadow:0 10px 30px rgba(0,0,0,0.05)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="font-size:12px;font-weight:800;letter-spacing:1px;color:#0d5c3a;text-transform:uppercase;margin-bottom:4px">Real-Time Analytics</div>
+        <h3 style="font-size:22px;font-weight:800;color:#1a2e22;margin:0">📊 7-Day APMC Price Trend (Tomato - Nashik)</h3>
+      </div>
+      <span style="font-size:12px;font-weight:700;background:#eef6f2;color:#0d5c3a;padding:6px 16px;border-radius:999px;border:1px solid #c2e2d3">Live APMC Feed</span>
+    </div>
+    <div style="position:relative;width:100%;height:300px">
+      <canvas id="mandiPriceChart"></canvas>
+    </div>
+  </div>
 </div>
 <div class="heroVisual reveal">
 <div class="field"></div>
@@ -359,5 +376,47 @@ window.addEventListener('scroll',()=>{
  document.getElementById('backTop').classList.toggle('show',window.scrollY>700);
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openSearch()}});
+document.addEventListener("DOMContentLoaded", function () {
+  const ctx = document.getElementById('mandiPriceChart');
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['17 Sep', '18 Sep', '19 Sep', '20 Sep', '21 Sep', '22 Sep', '23 Sep'],
+      datasets: [
+        {
+          label: 'Modal Price (₹/Quintal)',
+          data: [2200, 2350, 2300, 2450, 2520, 2480, 2600],
+          borderColor: '#0d5c3a',
+          backgroundColor: 'rgba(13, 92, 58, 0.08)',
+          fill: true,
+          tension: 0.4,
+          borderWidth: 3
+        },
+        {
+          label: 'Min Price (₹/Quintal)',
+          data: [1800, 1900, 1850, 2000, 2100, 2050, 2150],
+          borderColor: '#e11d48',
+          borderDash: [5, 5],
+          tension: 0.4,
+          borderWidth: 2
+        },
+        {
+          label: 'Max Price (₹/Quintal)',
+          data: [2500, 2600, 2550, 2700, 2800, 2750, 2900],
+          borderColor: '#2563eb',
+          borderDash: [5, 5],
+          tension: 0.4,
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+});
 </script>
 </body>
