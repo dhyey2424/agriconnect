@@ -126,37 +126,53 @@ url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fi
 <main id="top">
 <section class="hero"><div class="heroPhoto" aria-hidden="true"></div>
 <div class="heroGrid">
-<div class="reveal">
-<h1 data-i18n="heroTitle">From Farm<br>to <em>Fair Price.</em></h1>
-<p class="lead" data-i18n="heroSubtitle">AgriConnect gives farmers a smarter path to market — combining price intelligence, AI-assisted visual assessment and transparent bidding from verified bulk buyers.</p>
-<div class="ctas">
-  <button class="btn primary" onclick="openDemo('farmer')" data-i18n="btnFarmer">Explore as Farmer →</button>
-  <button class="btn" onclick="openDemo('buyer')" data-i18n="btnBuyer">Explore as Buyer</button>
-</div>
-   <div class="heroStats"><div class="stat"><b>5</b><small>Maharashtra pilot regions</small></div><div class="stat"><b>3</b><small>decision layers</small></div><div class="stat"><b>0.5%</b><small>demo platform fee</small></div></div>
-</div>
-<!-- Live Mandi Price Trend Chart -->
-<div style="max-width:1180px;margin:30px auto;padding:0 20px">
-  <div style="background:#ffffff;padding:28px;border-radius:24px;border:1px solid #e2e8f0;box-shadow:0 10px 30px rgba(0,0,0,0.05)">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
-      <div>
-        <div style="font-size:12px;font-weight:800;letter-spacing:1px;color:#0d5c3a;text-transform:uppercase;margin-bottom:4px">Real-Time Analytics</div>
-        <h3 style="font-size:22px;font-weight:800;color:#1a2e22;margin:0">📊 7-Day APMC Price Trend (Tomato - Nashik)</h3>
+      <!-- COLUMN 1: Hero Text & CTAs -->
+      <div class="reveal">
+        <h1 data-i18n="heroTitle">From Farm<br>to <em>Fair Price.</em></h1>
+        <p class="lead" data-i18n="heroSubtitle">AgriConnect gives farmers a smarter path to market — combining price intelligence, AI-assisted visual assessment and transparent bidding from verified bulk buyers.</p>
+        <div class="ctas">
+          <button class="btn primary" onclick="openDemo('farmer')" data-i18n="btnFarmer">Explore as Farmer →</button>
+          <button class="btn" onclick="openDemo('buyer')" data-i18n="btnBuyer">Explore as Buyer</button>
+        </div>
+        <div class="heroStats">
+          <div class="stat"><b>5</b><small>Maharashtra pilot regions</small></div>
+          <div class="stat"><b>3</b><small>decision layers</small></div>
+          <div class="stat"><b>0.5%</b><small>demo platform fee</small></div>
+        </div>
       </div>
-      <span style="font-size:12px;font-weight:700;background:#eef6f2;color:#0d5c3a;padding:6px 16px;border-radius:999px;border:1px solid #c2e2d3">Live APMC Feed</span>
+
+      <!-- COLUMN 2: Original Hero Visual Card -->
+      <div class="heroVisual reveal">
+        <div class="field"></div>
+        <div class="floating float1">
+          <div class="mini">NASHIK · ONION</div>
+          <div class="price">₹2,400/q</div>
+          <span class="pill badge">Market median</span>
+        </div>
+        <div class="floating float2">
+          <div class="mini">PRELIMINARY VISUAL GRADE</div>
+          <div class="price">A · 91%</div>
+          <span class="pill badge">AI-assisted</span>
+        </div>
+      </div>
     </div>
-    <div style="position:relative;width:100%;height:300px">
-      <canvas id="mandiPriceChart"></canvas>
+  </section>
+
+  <!-- Live Mandi Price Trend Chart Section (Outside Hero Section) -->
+  <div style="max-width:1180px;margin:30px auto;padding:0 20px">
+    <div style="background:#ffffff;padding:28px;border-radius:24px;border:1px solid #e2e8f0;box-shadow:0 10px 30px rgba(0,0,0,0.05)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-size:12px;font-weight:800;letter-spacing:1px;color:#0d5c3a;text-transform:uppercase;margin-bottom:4px">Real-Time Analytics</div>
+          <h3 style="font-size:22px;font-weight:800;color:#1a2e22;margin:0">📊 7-Day APMC Price Trend (Tomato - Nashik)</h3>
+        </div>
+        <span style="font-size:12px;font-weight:700;background:#eef6f2;color:#0d5c3a;padding:6px 16px;border-radius:999px;border:1px solid #c2e2d3">Live APMC Feed</span>
+      </div>
+      <div style="position:relative;width:100%;height:300px">
+        <canvas id="mandiPriceChart"></canvas>
+      </div>
     </div>
   </div>
-</div>
-<div class="heroVisual reveal">
-<div class="field"></div>
-<div class="floating float1"><div class="mini">NASHIK · ONION</div><div class="price">₹2,400/q</div><span class="pill">Market median</span></div>
-<div class="floating float2"><div class="mini">PRELIMINARY VISUAL GRADE</div><div class="price">A · 91%</div><span class="pill">AI-assisted</span></div>
-</div>
-</div>
-</section>
 
 <div class="marquee"><div class="track">MARKET INTELLIGENCE <span>✦</span> VISUAL ASSESSMENT <span>✦</span> VERIFIED BUYERS <span>✦</span> COMPETITIVE BIDDING <span>✦</span> NET REALIZATION <span>✦</span> AGRICONNECT <span>✦</span> MARKET INTELLIGENCE <span>✦</span> VISUAL ASSESSMENT <span>✦</span> VERIFIED BUYERS <span>✦</span> COMPETITIVE BIDDING <span>✦</span> NET REALIZATION <span>✦</span>
 </div></div>
