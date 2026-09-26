@@ -126,14 +126,7 @@ url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fi
   <div class="navlinks">
     <a href="#platform">Platform</a><a href="#marketplace">Marketplace</a><a href="#intelligence">Intelligence</a><a href="#stories">Impact</a><a href="#resources">Resources</a>
     <!-- Language Selector Dropdown -->
-<div style="display:inline-flex;align-items:center;gap:6px;background:#ffffff;border:1px solid #e2e8f0;padding:4px 10px;border-radius:999px;margin-right:8px">
-  <span style="font-size:12px">🌐</span>
-  <select id="languageSelect" onchange="changeLanguage(this.value)" style="background:transparent;border:none;font-size:12px;font-weight:700;color:#1a2e22;cursor:pointer;outline:none">
-    <option value="en">English</option>
-    <option value="hi">हिन्दी (Hindi)</option>
-    <option value="mr">मराठी (Marathi)</option>
-  </select>
-</div>
+<div id="google_translate_element"></div>
     <button class="searchBtn" onclick="openSearch()" aria-label="Search">⌕</button>
   </div>
   <a class="role" href="farmer.html">Enter Platform ↗</a>
@@ -422,4 +415,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 }); 
 </script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi,mr',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
